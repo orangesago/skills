@@ -6,6 +6,7 @@ description: Review changes and publish a draft PR. Use when asked to create or 
 ## Preflight
 
 - Run bundled `bash scripts/pr-preflight` from the target worktree before review; publication runs its own preflight.
+- Keep an existing feature branch's name, including branches prepared by a host or task runner. Follow repository naming conventions when creating a new branch.
 - For a default or spent branch, carry only intended commits onto a fresh branch from the reported base.
 - Publish only to the current branch's writable remote. Do not switch to a parent/upstream repository or create/sync a fork unless explicitly asked.
 
