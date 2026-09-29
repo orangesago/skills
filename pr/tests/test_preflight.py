@@ -38,7 +38,7 @@ class PreflightTest(unittest.TestCase):
         remote = root / "remote.git"
         self.git("clone", "--bare", str(self.repo), str(remote))
         self.git("remote", "add", "origin", str(remote))
-        self.git("switch", "-c", "minisago/5b57de87-5229-45d0-b288-e22b558d9d2a")
+        self.git("switch", "-c", "chore/minisago-5b57de87-5229-45d0-b288-e22b558d9d2a")
         self.git("commit", "--allow-empty", "-m", "fix: example change")
 
     def git(self, *arguments):
@@ -63,6 +63,10 @@ class PreflightTest(unittest.TestCase):
     def test_accepts_conventional_feature_branch(self):
         self.git("branch", "-m", "fix/example-change")
         self.preflight(0, "PR_PREFLIGHT_OK")
+
+    def test_blocks_non_conventional_branch_type(self):
+        self.git("branch", "-m", "minisago/5b57de87-5229-45d0-b288-e22b558d9d2a")
+        self.preflight(9, "reason=invalid_branch_name")
 
     def test_blocks_default_branch(self):
         self.git("switch", "main")
